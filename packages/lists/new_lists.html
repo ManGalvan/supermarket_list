@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Lista</title>
+</head>
+<body>
+    <header>
+        <h2 class="text-center" id="txtNameList">Nueva Lista</h2>
+    </header>
+    <main>
+        <section class="container d-flex flex-column">
+            <div class="mb-3">
+                <label for="txtTitleList" class="form-label">Titulo de la lista</label>
+                <input type="text" class="form-control" id="txtTitleList" oninput="renameList()">
+            </div>
+            <div class="mb-3">
+                <label for="txtTitleList" class="form-label">Nuevo elemento</label>
+                <input type="text" class="form-control" id="txtNewItemList" onkeydown="addItemList(event)">
+            </div>
+            <div class="mb-3 d-flex justify-content-center">
+                <button class="btn btn-primary m-2">Agregar elemento</button>
+                <button class="btn btn-success m-2">Guardar lista</button>
+            </div>
+            <ul class="list-group mb-3 d-flex justify-content-center" id="listing"></ul>
+        </section>
+    </main>
+    <footer>
+    </footer>
+</body>
+</html>
