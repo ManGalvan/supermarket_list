@@ -1,4 +1,4 @@
-const getHtml = (package, file) =>{
+const getHtml = (package, file) =>{ //Gets a HTML file to show, without reloading the browser
     let url = "";
     if(file == ""){
       file = "home";
@@ -13,7 +13,6 @@ const getHtml = (package, file) =>{
         return response.text();
       })
       .then(function(html) {
-        // Insertar el contenido de la nueva página en algún elemento en tu página actual
         document.getElementById("main").innerHTML = html;
       })
       .catch(function(error) {
@@ -21,40 +20,54 @@ const getHtml = (package, file) =>{
     });
 }
 
-const renameList = () => {
+const renameList = () => {  //Renames the current list
   let nameList = document.getElementById("txtTitleList").value;
   document.getElementById("txtNameList").innerText = nameList;
 };
 
+const getIdLastIdItemList = (idList) => { //Gets the index of last item inserted at list
+  let list = document.getElementById(idList);
+  let lastItem = list.lastChild;
+  if(lastItem != null){
+    let arr = lastItem.id.split("_");
+    return arr[1];
+  } else {
+    return 0; //If no items are found, returns 0
+  }
+}
 
-const addItemList = (e) => {
-  //let countElement = 0;
+const addItemList = (e) => {  //Adds a new item to the current list
   if(e.keyCode == 13){
     let newItem = document.getElementById("txtNewItemList").value;
+    if(newItem != ""){
+      let itemCount = getIdLastIdItemList("listing");
+      if(itemCount > 0){
+        itemCount++;
+      } else {
+        itemCount = 1;
+      }
 
-    const li = document.createElement("li");
-    li.className = "list-group-item";
-    //li.id = `li_${countElement}`;
-
-    const input = document.createElement("input");
-    input.type = "checkbox";
-    input.className = "form-check-input me-1";
-
-    const label = document.createElement("label");
-    label.className = "form-check-label";
-    //label.htmlFor = `li_${countElement}`;
-    label.textContent = newItem;
-
-    li.appendChild(input);
-    li.appendChild(label);
-
-    //let content = ul.appendChild(li);
-
-    document.getElementById("listing").appendChild(li);
-    document.getElementById("txtNewItemList").value = "";
-
-    //let element = liElement.append(newItem);
-    console.log(li);
-    //countElement++;
+      const li = document.createElement("li");
+      li.className = "list-group-item";
+      li.id = `li_${itemCount}`;
+  
+      const input = document.createElement("input");
+      input.type = "checkbox";
+      input.className = "form-check-input me-1";
+      input.id = `input_${itemCount}`;
+  
+      const label = document.createElement("label");
+      label.className = "form-check-label";
+      label.textContent = newItem;
+      label.htmlFor = `input_${itemCount}`;
+  
+      li.appendChild(input);
+      li.appendChild(label);
+  
+      document.getElementById("listing").appendChild(li);
+      document.getElementById("txtNewItemList").value = "";
+    } else {
+      alert("Item no valido");
+    }
   }
 };
